@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var findKthLargest = function(nums, k) {
+            return quickSelect(nums, 0, nums.length - 1, k);
+        };
+
+        function quickSelect(nums, low, hight, k){
+            let pivot = low;
+            for(let j=low; j<hight; j++) {
+                if(nums[j] <= nums[hight]) {
+                    swap(nums, pivot++, j);
+                }
+            }
+            swap(nums, pivot, hight);
+
+            let count = hight - pivot + 1;
+            if(count == k) {
+                return nums[pivot];
+            }else if(count > k){
+                return quickSelect(nums, pivot + 1, hight, k);
+            }else {
+                return quickSelect(nums, low, pivot - 1, k - count);
+            }
+        }
+
+        function swap(nums, a, b) {
+            let temp = nums[a];
+            nums[a] = nums[b];
+            nums[b] = temp;
+        }
+
+        let nums = [3,4,2,7,1,5,6,9,8];
+        console.log( findKthLargest(nums, 2) );
+    </script>
+</body>
+</html>

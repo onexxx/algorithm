@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function partition(arr, lo, hi){
+        let i = lo, j = hi + 1;
+        let v = arr[lo];
+        while(true) {
+            while(arr[++i] < v) if(i == hi) break; 
+            while(v < arr[--j]) if(j == lo) break;
+            if(i >= j) break;
+            exch(arr, i, j);
+        }
+        exch(arr, lo, j);
+        return j;
+    }
+
+    function sort(arr, lo, hi) {
+        if(lo >= hi) return;
+        let j = partition(arr, lo, hi);
+        sort(arr, lo, j-1);
+        sort(arr, j+1, hi);
+    }
+
+    function exch(arr, a, b) {
+        let temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+    // test
+    let origin = [2,1,6,4,7,5,8,9,3,0];
+
+    let arr = [...origin];
+    sort(arr, 0, arr.length - 1);
+    console.log(arr);
+
+    </script>
+</body>
+</html>

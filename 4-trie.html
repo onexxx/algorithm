@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /**
+    * Initialize your data structure here.
+    */
+    var Trie = function() {
+        this.root = new Node();
+    };
+
+    var Node = function(val) {
+        this.val = val;
+        this.childNodes = {};
+        this.isEnd = false;
+    }
+
+    /**
+    * Inserts a word into the trie. 
+    * @param {string} word
+    * @return {void}
+    */
+    Trie.prototype.insert = function(word) {
+        let prefix = '';
+        let node = this.root;
+        for(let i=1;i<=word.length;i++) {
+            prefix = word.slice(0, i);
+            if(node.childNodes[prefix] == null) {
+                node.childNodes[prefix] = new Node(prefix);
+                if(i == word.length) node.childNodes[prefix].isEnd = true;
+            }
+            node = node.childNodes[prefix];
+        }
+    };
+
+    /**
+    * Returns if the word is in the trie. 
+    * @param {string} word
+    * @return {boolean}
+    */
+    Trie.prototype.search = function(word) {
+        let node = this.root;
+        console.log(this.root);
+        for(let i=1;i<word;i++) {
+            let prefix = word.slice(0, i);
+            node = node.childNodes[prefix];
+            if(node == null) return false;
+        }
+        return node.isEnd;
+    };
+
+    /**
+    * Returns if there is any word in the trie that starts with the given prefix. 
+    * @param {string} prefix
+    * @return {boolean}
+    */
+    Trie.prototype.startsWith = function(prefix) {
+        let node = this.root;
+        for(let i=1;i<prefix;i++) {
+            let pre = prefix.slice(0, i);
+            node = node.childNodes[pre];
+            if(node == null) return false;
+        }
+        return true;
+    };
+
+    /** 
+    * Your Trie object will be instantiated and called as such:
+    * var obj = new Trie()
+    * obj.insert(word)
+    * var param_2 = obj.search(word)
+    * var param_3 = obj.startsWith(prefix)
+    */
+
+
+
+    let trie = new Trie();
+
+    trie.insert("apple");
+    trie.search("apple");   // 返回 true
+    trie.search("app");     // 返回 false
+    trie.startsWith("app"); // 返回 true
+    trie.insert("app");   
+    trie.search("app");     // 返回 true
+
+    </script>
+</body>
+</html>

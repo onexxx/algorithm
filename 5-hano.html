@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function hano(a, b, c, n) {
+            if(n > 0) {
+                hano(a, c, b, n-1);
+                console.log(`${a}->${c}`);
+                hano(b, a, c, n-1);
+            }
+        }
+
+        hano('a', 'b', 'c', 3);
+    </script>
+</body>
+</html>

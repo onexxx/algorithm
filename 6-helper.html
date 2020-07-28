@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function helper(n, m) {
+            if(n < 0 || m < 0 || n < m) return [];
+            if(m == 0) return [''];
+            if(m == 1) return ['1', '8', '0'];
+            let res = [];
+            let pre = helper(n, m - 2);
+            for(let i=0;i<pre.length;i++) {
+                if(m != n) res.push('0'+pre[i]+'0');
+                res.push('1'+pre[i]+'1');
+                res.push('6'+pre[i]+'9');
+                res.push('8'+pre[i]+'8');
+                res.push('9'+pre[i]+'6');
+            }
+            return res;
+        }
+
+        let res = helper(4, 4);
+        console.log(res);
+    </script>
+</body>
+</html>

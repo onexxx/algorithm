@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 选择排序
+    function sort1(arr) {
+        const N = arr.length;
+        for(let i=0; i < N; i++) {
+            let min = i;
+            for(let j = i+1; j < N; j++) {
+                if(arr[j] < arr[min]) min = j;
+            }
+            exch(arr, i, min);
+        }
+    }
+
+    // 插入排序
+    function sort2(arr) {
+        const N = arr.length;
+        for(let i = 1; i < N; i++) {
+            for(let j = i; j > 0 && arr[j] < arr[j-1]; j--) {
+                exch(arr, j, j-1);
+            }
+        }
+    }
+
+    // 希尔排序
+    function sort3(arr) {
+        const N = arr.length;
+        let h = 1;
+        while(h < Math.floor(N/3)) h = 3 * h + 1;
+        while(h >= 1) {
+            for(let i=h; i < N; i++) {
+                for(let j = i; j >= h && arr[j] < arr[j - h]; j -= h) {
+                    exch(arr, j, j-h);
+                }
+            }
+            h = Math.floor(h / 3);
+        }
+    }
+
+    function exch(arr, a, b) {
+        let temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+    // test
+    let origin = [2,1,6,4,7,5,8,9,3,0];
+
+    let arr = [...origin];
+    sort1(arr);
+    console.log(arr);
+
+    arr = [...origin];
+    sort2(arr);
+    console.log(arr);
+
+    arr = [...origin];
+    sort3(arr);
+    console.log(arr);
+
+    </script>
+</body>
+</html>

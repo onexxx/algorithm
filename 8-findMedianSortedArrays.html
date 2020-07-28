@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var findMedianSortedArrays = function(nums1, nums2) {
+            let m = nums1.length;
+            let n = nums2.length;
+            let k = parseInt((m + n) / 2);
+            if((m + n) % 2 == 1) {
+                return findKth(nums1, 0, m - 1, nums2, 0, n - 1, k + 1);
+            }else{
+                return (
+                    findKth(nums1, 0, m - 1, nums2, 0, n - 1, k) 
+                    + findKth(nums1, 0, m - 1, nums2, 0, n - 1, k + 1)
+                )/2;
+            }
+        };
+
+        function findKth(numsa, la, ha, numsb, lb, hb, k) {
+            let m = ha - la + 1;
+            let n = hb - lb + 1;
+
+            if(m > n) return findKth(numsb, lb, hb, numsa, la, ha, k);
+
+            if(m == 0) return numsb[lb + k - 1];
+
+            if(k == 1) return Math.min(numsa[la], numsb[lb]);
+
+            let ka = Math.min(parseInt(k / 2), m);
+            let kb = k - ka;
+            let va = numsa[la + ka - 1];
+            let vb = numsb[lb + kb - 1];
+
+            if(va == vb) {
+                return va;
+            }else if(va < vb) {
+                return findKth(numsa, la + ka, ha, numsb, lb, lb + kb - 1, k - ka);
+            }else{
+                return findKth(numsa, la, la + ka - 1, numsb, lb + kb, hb, k - kb);
+            }
+        }
+
+        let nums1 = [1,2];
+        let nums2 = [3,4];
+        console.log( findMedianSortedArrays(nums1, nums2) );
+
+    </script>
+</body>
+</html>
